@@ -1,13 +1,14 @@
-/**
+/*!
  * jQuery CFJS plugin
- * version 1.1.12 (10/19/2009)
+ * version 1.2.0 (10/20/2011)
  * @requires jQuery (http://jquery.com)
  *
- * Copyright (c) 2008 - 2009 Christopher Jordan
+ * Copyright (c) 2008 - 2011 Christopher Jordan
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
- *
+ */
+ /**
  * Modified by Christopher Jordan (chris.s.jordan@gmail.com) from
  * code originally written (except where noted), and
  * published as-is and without license as LeftCorner.js by
@@ -81,8 +82,8 @@ jQuery.extend({
 		}); 
 	},
 	_DimensionCount: function(a){
-		var c = 0;
-		for(var i = 0; i < a.length; i++){
+		var c=0,i;
+		for(i = 0; i < a.length; i++){
 			if(a[i].constructor == Array){
 				c++;
 			}
@@ -171,8 +172,7 @@ jQuery.extend({
 		return rd;
 	},
 	CreateODBCDate: function(d){
-		var error = "invalid date object";
-		var year, month, day;
+		var year,month,day,error="invalid date object";
 		if(isNaN(Date.parse(d))){return error;}
 		year	= d.getFullYear();
 		month	= d.getMonth() + 1;// because it returns 0 - 11 not 1 - 12
@@ -182,8 +182,7 @@ jQuery.extend({
 		return "{d '" + year + "-" + month + "-" + day + "'}";
 	},
 	CreateODBCDateTime: function(d){
-		var error = "invalid date object";
-		var year, month, day, hours, minutes, seconds;
+		var year,month,day,hours,minutes,seconds,error = "invalid date object";
 		if(isNaN(Date.parse(d))){return error;}
 		year	= d.getFullYear();
 		month	= d.getMonth() + 1;// because it returns 0 - 11 not 1 - 12
@@ -196,8 +195,7 @@ jQuery.extend({
 		return "{ts '" + year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "'}";
 	},
 	CreateODBCTime: function(d){
-		var error = "invalid date object";
-		var hours, minutes, seconds;
+		var hours,minutes,seconds,error = "invalid date object";
 		if(isNaN(Date.parse(d))){return error;}
 		hours	= d.getHours();
 		minutes	= d.getMinutes();
@@ -205,20 +203,19 @@ jQuery.extend({
 		return "{t '" + hours + ":" + minutes + ":" + seconds + "'}";
 	},
 	DateDiff: function(dp,d1,d2){
-		var dt1 = new Date(d1);
-		var dt2 = new Date(d2);
-		var iDiffMS = dt2.valueOf() - dt1.valueOf();
-		var dtDiff = new Date(iDiffMS);
-		var nYears  = dt2.getUTCFullYear() - dt1.getUTCFullYear();
-		var nMonths = dt2.getUTCMonth() - dt1.getUTCMonth() + (nYears!==0 ? nYears*12 : 0);
-		var nQuarters = nMonths / 3;
-		var nMilliseconds = iDiffMS;
-		var nSeconds = iDiffMS / 1000;
-		var nMinutes = nSeconds / 60;
-		var nHours = nMinutes / 60;
-		var nDays  = nHours / 24;
-		var nWeeks = nDays / 7;
-		var iDiff = 0;
+		var iDiff,nWeeks,nDays,nHours,nMinutes,nSeconds,nMilliseconds,nQuarters,nMonths,nYears,dtDiff,iDiffMS,dt1=new Date(d1),dt2 = new Date(d2);
+		iDiffMS	= dt2.valueOf() - dt1.valueOf();
+		dtDiff	= new Date(iDiffMS);
+		nYears	= dt2.getUTCFullYear() - dt1.getUTCFullYear();
+		nMonths	= dt2.getUTCMonth() - dt1.getUTCMonth() + (nYears!==0 ? nYears*12 : 0);
+		nQuarters = nMonths / 3;
+		nMilliseconds = iDiffMS;
+		nSeconds = iDiffMS / 1000;
+		nMinutes = nSeconds / 60;
+		nHours	= nMinutes / 60;
+		nDays	= nHours / 24;
+		nWeeks	= nDays / 7;
+		iDiff	= 0;
 		switch(dp.toLowerCase()){
 			case "yyyy": return nYears;
 			case "q": return nQuarters;
@@ -238,6 +235,8 @@ jQuery.extend({
 		// DateFormat slightly modified from code by Steve Levithan (http://blog.stevenlevithan.com/)
 		// date (d) is now being passed in since this isn't an extension of the date object.
 		// var d = this; // Needed for the replace() closure
+		
+		var m,zeroize;
 
 		// we're expecting d to be a javascript date object, but if it's not then we'll assume it's a string
 		// representation of a date and attempt to convert that string into a date object
@@ -246,10 +245,11 @@ jQuery.extend({
 		}
 
 		// If preferred, zeroise() can be moved out of the format() method for performance and reuse purposes
-		var zeroize = function (value, length) {
+		zeroize = function (value, length) {
+			var i;
 			if(!length){length = 2;}
 			value = String(value);
-			for(var i = 0, zeros = ''; i < (length - value.length); i++){
+			for(i = 0, zeros = ''; i < (length - value.length); i++){
 				zeros += '0';
 			}
 			return zeros + value;
@@ -276,7 +276,7 @@ jQuery.extend({
 				case 's':		return d.getSeconds();
 				case 'ss':		return zeroize(d.getSeconds());
 				case 'l':		return zeroize(d.getMilliseconds(), 3);
-				case 'L':		var m = d.getMilliseconds();
+				case 'L':		m = d.getMilliseconds();
 								if(m > 99){m = Math.round(m / 10);}
 								return zeroize(m);
 				case 'tt':		return d.getHours() < 12 ? 'am' : 'pm';
@@ -290,12 +290,12 @@ jQuery.extend({
 		});
 	},
 	DatePart: function(dp, d){
-		var d1;
+		var d1,m,day;
 		switch(dp){
 			case "yyyy":
 				return d.getFullYear();
 			case "q":
-				var m = d.getMonth() + 1;
+				m = d.getMonth() + 1;
 				switch(m){
 					case 1:
 					case 2:
@@ -323,7 +323,7 @@ jQuery.extend({
     			d1 = this.CreateDate(d.getFullYear(), 1, 1);
     			return Math.ceil(this.DateDiff("d", d1, d));
 			case "d":
-				var day	= d.getDate();
+				day	= d.getDate();
 				day = (day<10)?"0"+day:day;
 				return day;
 			case "w":
@@ -343,18 +343,19 @@ jQuery.extend({
 		}
 	},
 	DecimalFormat: function(n){
-		return(this._commafy(n.toFixed(2)));
+		return this._commafy(Number(n).toFixed(2));
 	},
 	DollarFormat: function(n) {
-		var _n = n.toString().replace(/\$|\,/g,'');
+		var _n,sign,cents;
+		_n = n.toString().replace(/\$|\,/g,'');
 		_n = _n.toString().replace('(','-');
 		_n = _n.toString().replace(')','');
 		if(isNaN(_n)){
 			_n = 0;
 		}
-		var	sign = (_n == (_n = Math.abs(n)));
+		sign = (_n == (_n = Math.abs(n)));
 			_n = Math.floor(_n*100+0.50000000001);
-		var	cents = _n%100;
+		cents = _n%100;
 			_n = Math.floor(_n/100).toString();
 		if(cents < 10){
 			cents = "0" + cents;
@@ -422,15 +423,16 @@ jQuery.extend({
 		return false;
 	},
 	IsDate: function(d){
-		var datePat 	= /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
-		var matchArray 	= d.toString().match(datePat);
+		var datePat,matchArray,month,day,year,isleap;
+		datePat 	= /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
+		matchArray 	= d.toString().match(datePat);
 		if (matchArray === null) {
 			return false;
 		}
-		var month 	= matchArray[1];
-		var day 	= matchArray[3];
-		var year 	= matchArray[5];
-		var isleap = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
+		month 	= matchArray[1];
+		day 	= matchArray[3];
+		year 	= matchArray[5];
+		isleap = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
 		if (month < 1 || month > 12) {
 			return false;
 		}
@@ -477,6 +479,7 @@ jQuery.extend({
 		return false;
 	},
 	IsValid: function(t,v,r,m){
+		var i,digit,sum=0;
 		t = t.toLowerCase();
 		switch(t){
 			case "any": 	return this.IsSimpleValue(v);
@@ -504,8 +507,6 @@ jQuery.extend({
 			case "zipcode": return this.IsValid("regex",v,/(^\d{5}$)|(^\d{5}-\d{4}$)/);
 			case "creditcard": 
 				if(!this.IsValid("range",v.length,13,16)){return false;}
-				var sum = 0;
-				var i, digit;
 				for (i=(2-(v.length % 2)); i<=v.length; i+=2){
 					sum += parseInt(v.charAt(i-1),10);
 				}
@@ -529,9 +530,9 @@ jQuery.extend({
 		return s.length;
 	},
 	ListAppend: function(l, v, d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d = ",";}
-		var r = "";
+		var r='';
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		if (this.ListLen(l)){
 			r = l + d + v;
 		} else {
@@ -540,44 +541,41 @@ jQuery.extend({
 		return r;
 	},
 	ListChangeDelims: function(l, nd, od){
-		l += ""; // cheap way to convert to a string
-		if(!od){od = ",";}
-		var spc = "^,$,|,.,+,*,?,\,/";
+		var spc = "^,$,|,.,+,*,?,\,/",re;
+		l += ''; // cheap way to convert to a string
+		if(!od){od=',';}
 		if(this.ListFind(spc,od)){od="\\"+od;}
-		var re = new RegExp(od,"gi");
+		re = new RegExp(od,"gi");
 		return l.replace(re,nd);
 	},
 	ListContains: function(l, sb, d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d=",";}
-		var spc = "^,$,|,.,+,*,?,\,/";
+		var spc = "^,$,|,.,+,*,?,\,/",re,i;
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		if(this.ListFind(spc,sb)){sb="\\"+sb;}
 		l = l.split(d);
-		var re = new RegExp(sb,"g");
-		for(var i=0; i<l.length;i++){
+		re = new RegExp(sb,"g");
+		for(i=0; i<l.length;i++){
 			if(re.test(l[i])){return true;}
 		}
 		return false;
 	},
 	ListContainsNoCase: function(l, sb, d){
-		l += ""; // cheap way to convert to a string
+		var spc = "^,$,|,.,+,*,?,\,/",re,i;
+		l += ''; // cheap way to convert to a string
 		if(!d){d=",";}
-		var spc = "^,$,|,.,+,*,?,\,/";
 		if(this.ListFind(spc,sb)){sb="\\"+sb;}
 		l = l.split(d);
-		var re = new RegExp(sb,"gi");
-		for(var i=0; i<l.length;i++){
+		re = new RegExp(sb,"gi");
+		for(i=0; i<l.length;i++){
 			if(re.test(l[i])){return true;}
 		}
 		return false;
 	},
 	ListDeleteAt: function(l, p, d){
-		l += ""; // cheap way to convert to a string
+		var i,posInList,r='',thisD='',posInArray = p - 1;
+		l += ''; // cheap way to convert to a string
 		if(!d){d = ",";}
-		var i,posInList;
-		var posInArray = p - 1;
-		var thisD 	= "";
-		var r = "";
 		for(i = 0; i < l.split(d).length; i++){
 			if (i != posInArray){
 				posInList = i + 1;
@@ -590,11 +588,11 @@ jQuery.extend({
 		return r;
 	},
 	ListFind: function (l,v,d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d = ",";}
-		var r = 0;
-		var listToArray = l.split(d);
-		for (var i=0; i < listToArray.length; i++){
+		var i,r=0,listToArray;
+		l += ''; // cheap way to convert to a string
+		if(!d){d = ',';}
+		listToArray = l.split(d);
+		for (i=0; i < listToArray.length; i++){
 			if (listToArray[i] == v){
 				r = i + 1;
 				break;
@@ -603,23 +601,23 @@ jQuery.extend({
 		return r;
 	},
 	ListFindNoCase: function(l,v,d){
-		l += ""; // cheap way to convert to a string
+		l += ''; // cheap way to convert to a string
 		if(!d){d = ",";}
 		return this.ListFind(l.toUpperCase(), v.toUpperCase(), d);
 	},
 	ListFirst: function(l,d){
-		l += ""; // cheap way to convert to a string
+		l += ''; // cheap way to convert to a string
 		if(!d){d = ",";}
 		return l.split(d)[0];
 	},
 	ListGetAt: function (l, p, d){
-		l += ""; // cheap way to convert to a string
+		l += ''; // cheap way to convert to a string
 		if(!d){d = ",";}
 		return l.split(d)[p - 1];
 	},
 	ListInsertAt: function(l, p, v, d){
 		var a;
-		l += ""; // cheap way to convert to a string
+		l += ''; // cheap way to convert to a string
 		if(!d){d=",";}
 		l = l.split(d);
 		if(p===0){
@@ -630,26 +628,24 @@ jQuery.extend({
 			l.push(v);
 			l = l.concat(a);
 		}
-		return this.ListChangeDelims(l.toString(), d, ",");
+		return this.ListChangeDelims(l.toString(), d, ',');
 	},
 	ListLast: function(l,d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d = ",";}
-		// I don't know which of the two methods below would be preferable
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		l = l.split(d);
 		return l[l.length - 1];
-		//return l.split(d)[l.split(d).length - 1];
 	},
 	ListLen: function(l,d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d = ",";}
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		if(l.length){return l.split(d).length;}
 		return 0;
 	},
 	ListPrepend: function(l, v, d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d = ",";}
-		var r = "";
+		var r='';
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		if (this.ListLen(l)){
 			r = v + d + l;
 		} else {
@@ -658,74 +654,75 @@ jQuery.extend({
 		return r;
 	},
 	ListRest: function(l,d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d=",";}
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		l = l.split(d);
 		l.splice(0,1);
-		l=(l.length)?this.ArrayToList(l,d):"";
+		l=(l.length)?this.ArrayToList(l,d):'';
 		return l;
 	},
 	ListSetAt: function(l, p, v, d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d=",";}
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		l = l.split(d);
 		l[p-1] = v;
-		return this.ListChangeDelims(l.toString(), d, ",");
+		return this.ListChangeDelims(l.toString(), d, ',');
 	},
 	ListSort: function(l, st, so, d){
-		l += ""; // cheap way to convert to a string
-		if(!d){d=",";}
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		l = l.split(d);
 		l = this.ArraySort(l, st, so);
-		return this.ListChangeDelims(l.toString(), d, ",");
+		return this.ListChangeDelims(l.toString(), d, ',');
 	},
 	ListToArray: function(l,d){
-		l += ""; // cheap way to convert to a string
-		var r,a,i;
-		if(!d){d = ",";}
+		l += ''; // cheap way to convert to a string
+		var r,a;
+		if(!d){d=',';}
 		r = [];
 		a = l.split(d);
 		return a;
 	},
 	ListValueCount: function(l, v, d){
-		var c = 0; // count
-		l += ""; // cheap way to convert to a string
-		if(!d){d = ",";}
+		var c = 0,i; // count
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		l = l.split(d);
-		for(var i = 0; i < l.length; i++){
+		for(i = 0; i < l.length; i++){
 			if(l[i] == v){c++;}
 		}
 		return c;
 	},
 	ListValueCountNoCase: function(l, v, d){
-		var c = 0; // count
-		l += ""; // cheap way to convert to a string
-		if(!d){d = ",";}
+		var c = 0,i; // count
+		l += ''; // cheap way to convert to a string
+		if(!d){d=',';}
 		l = l.split(d);
-		for(var i = 0; i < l.length; i++){
+		for(i = 0; i < l.length; i++){
 			if(l[i].toUpperCase() == v.toUpperCase()){c++;}
 		}
 		return c;
 	},
 	LTrim: function(s){
-		s += "";
+		s += '';
 		if(s.length){return s.replace(/^\s*/, '');}
 		return '';
 	},
 	Mid: function(s, start, c){
-		s += "";
+		s += '';
 		start -= 1;
 		return s.slice(start,start + c);
 	},
 	Pad: function(s, n, pc, pd){
-		if(arguments.length <= 3){pd="R";}
-		if(arguments.length <= 2){pc=" ";}
+		var sl,pl;
+		if(arguments.length <= 3){pd='R';}
+		if(arguments.length <= 2){pc=' ';}
 		if(arguments.length <= 1){n=10;}
-		if(arguments.length === 0){s="";}
-		var sl = s.length;
-		var pl = n - sl;
+		if(arguments.length === 0){s='';}
+		sl = s.length;
+		pl = n - sl;
 		if(sl >= n){return s;}
-		if(pd == "R" || pd == "Right"){return s + this.RepeatString(pc, pl);}
+		if(pd === 'R' || pd === 'Right'){return s + this.RepeatString(pc, pl);}
 		return this.RepeatString(pc, pl) + s;
 	},
 	Param: function(n,d){
@@ -739,43 +736,46 @@ jQuery.extend({
 		}
 	},
 	RepeatString: function(s,n){
-		var rs = "";
-		for(var i = 1; i <= n; i++){
+		var rs='',i;
+		for(i = 1; i <= n; i++){
 			rs += s;
 		}
 		return rs;
 	},
 	Replace: function(s,sb1,sb2,sc){
-		s += "";
-		if(!sc || sc.toUpperCase() != "ALL"){
-			sc = "";
+		var re;
+		s += '';
+		if(!sc || sc.toUpperCase() !== 'ALL'){
+			sc = '';
 		} else {
-			sc ="g";
+			sc ='g';
 		}
-		var re = new RegExp(sb1,sc);
+		re = new RegExp(sb1,sc);
 		return s.replace(re,sb2);
 	},
 	ReplaceNoCase: function(s,sb1,sb2,sc){
-		s += "";
-		if(!sc || sc.toUpperCase() != "ALL"){
-			sc = "i";
+		var re;
+		s += '';
+		if(!sc || sc.toUpperCase() !== 'ALL'){
+			sc = 'i';
 		} else {
-			sc ="gi";
+			sc = 'gi';
 		}
-		var re = new RegExp(sb1,sc);
+		re = new RegExp(sb1,sc);
 		return s.replace(re,sb2);
 	},
 	Reverse: function(s){
-		s += "";
-		var i = s.length;
-		var r = "";
+		var i,r;
+		s += '';
+		i = s.length;
+		r = '';
 		for (i; 0 <= i; i--){
 			r += s.charAt(i);
 		}
 		return r;
 	},
 	Right: function(s,c){
-		s += "";
+		s += '';
 		return s.slice(s.length - c, s.length);
 	},
 	Round: function(n,p) {
@@ -783,35 +783,29 @@ jQuery.extend({
 		return n;
 	},
 	RTrim: function(s){
-		s += "";
+		s += '';
 		if(s.length){return s.replace(/\s*$/, '');}
 		return '';
 	},
 	StructKeyArray: function(s){
-		var k;
-		var a = [];
-		for(k in s){
-			a.push(k);
-		}
+		var k,a=[];
+		for(k in s){a.push(k);}
 		return a;
 	},
 	StructKeyExists: function(s,k){
 		return !!s[k];
 	},
 	StructKeyList: function(s,d){
-		var k;
-		var a = "";
-		if(!d){d=",";}
-		for(k in s){
-			a = this.ListAppend(a, k, d);
-		}
+		var k,a='';
+		if(!d){d=',';}
+		for(k in s){a = this.ListAppend(a, k, d);}
 		return a;
 	},
 	TimeFormat: function(t,m){
 		return this.DateFormat(t,m);
 	},
 	Trim: function(s){
-		s += "";
+		s += '';
 		if(s.length){return s.replace(/^\s\s*/, '').replace(/\s\s*$/, '');}
 		return '';
 	},
