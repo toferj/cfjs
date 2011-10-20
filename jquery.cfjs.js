@@ -735,7 +735,10 @@ jQuery.extend({
 			}
 		}
 	},
-	RepeatString: function(s,n){
+	RandRange: function(n,n2){
+		return Math.floor(Math.random()*(n2-n+1))+n;
+	},
+ 	RepeatString: function(s,n){
 		var rs='',i;
 		for(i = 1; i <= n; i++){
 			rs += s;
