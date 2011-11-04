@@ -726,9 +726,8 @@ jQuery.extend({
 	Reverse: function(s){
 		var i,r;
 		s += '';
-		i = s.length;
 		r = '';
-		for (i = 0; i <= i; i--){
+		for (i = s.length; 0 <= i; i--){
 			r += s.charAt(i);
 		}
 		return r;
