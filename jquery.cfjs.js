@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.0 (10/20/2011)
+ * version 1.2.1 (11/04/2011)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2011 Christopher Jordan
@@ -19,56 +19,6 @@
  * it was when I started working on it.
  *
  * Thanks Randy. :o)
- * 
- * IMPORTANT NOTICE:
- * Quite a few methods depend on other methods. Be careful if you
- * remove/rename a method!
- *
- * Description:
- *   JavaScript equivilants of useful ColdFusion functions.
- *   The methods are designed to behave like their ColdFusion
- *   counterparts. Of course, don't forget that JavaScript
- *   (unlike ColdFusion) is case sensitive!
- *
- * Please see the changelog for more information and credits, including
- * the entire function list. These comments were getting too big so I moved
- * all of that to the changelog.
- *
- * The changelog can be found in the SVN repository on RIA Forge
- * at http://cfjs.riaforge.org.
- *
- * The function list can also be found at http://cjordan.us
- *
- * Usage:
- *  General:
- *    In general all functions are accessed like so:
- *
- *      $.funcName(args);
- *
- *  Examples:
- *    // this example assumes that myArray and ColumnDetailStruct are defined.
- *    // check to see if the structure in the array element is defined and if so
- *    // check to see that the key, "columnnamesort" exists, behaive accordingly...
- *    if($.IsDefined(myArray[myArray.length - 1]) && $.StructKeyExists(myArray[myArray.length - 1], "columnnamesort")){
- *        ColumnDetailStruct.columnnamesort = (myArray[myArray.length -1].columnnamesort) + 10;
- *    }
- *    else{ // the key, "columnnamesort" did not exist... so create it and set it to 10.
- *        ColumnDetailStruct.columnnamesort = 10;
- *    }
- *
- *   -OR-
- *
- *    This example shows how one could replace what would normally be a long string similar to:
- *     if(a == value || a == value2 || a == value3 || a == valueN.......){
- *         // do something cool if the above is true
- *     }
- *    ... into the following much shorter code ...
- *
- *    // this example assumes that a variable ThisReportType has already been defined
- *    var myList = "Daily Needs,Fill Rate,Spend Recap";
- *    if($.ListFindNoCase(myList, ThisReportType)){
- *        //do something special for these types of reports
- *    }
  *
  */
 jQuery.extend({
@@ -459,10 +409,16 @@ jQuery.extend({
 		if((y/400) != Math.floor(y/400)){return false;}
 		return true;
 	},
-	IsNumeric: function(s){
-		if (isNaN(s)){return false;}
-		return true;
-	},
+	IsNumeric: (function(s){
+		//because jquery is now providing their own version of isNumeric as of jq1.7
+		return jQuery.isNumeric || 
+		function(s) {
+			if (isNaN(s)){
+				return false;
+			}
+			return true;
+		}
+	})(),
 	IsSimpleValue: function(v){
 		if(this.IsString(v)){return true;}
 		if(this.IsNumeric(v)){return true;}
