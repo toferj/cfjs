@@ -728,7 +728,7 @@ jQuery.extend({
 		s += '';
 		i = s.length;
 		r = '';
-		for (i; 0 <= i; i--){
+		for (i = 0; i <= i; i--){
 			r += s.charAt(i);
 		}
 		return r;
