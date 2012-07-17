@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.1 (11/04/2011)
+ * version 1.2.3 (07/17/2012)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2011 Christopher Jordan
@@ -292,6 +292,14 @@ jQuery.extend({
 				return d.getMilliseconds();
 		}
 	},
+	DaysInMonth: function(m,y){
+		/* Thanks to Charlie (http://snippets.dzone.com/user/Charlie) over at dzone for this code.
+		 * Only slightly modified from the sample found at http://snippets.dzone.com/posts/show/2099
+		 * such that the caller does *NOT* have to pass in the zero based month (0 = Jan, 1 = Feb, etc.)
+		 * Instead, 1=January, 2=February, etc.
+		 */
+		return 32 - new Date(y, (m-1), 32).getDate();
+	},
 	DecimalFormat: function(n){
 		return this._commafy(Number(n).toFixed(2));
 	},
@@ -442,7 +450,7 @@ jQuery.extend({
 			case "array": 	return this.IsArray(v);
 			case "date": 	return this.IsDate(v);
 			case "boolean":	return this.IsBoolean(v);
-			case "email": 	return this.IsValid("regex",v,/(^[a-z]([a-z_\.]*)@([a-z_\.]*)([.][a-z]{2,4})$)/i);
+			case "email": 	return this.IsValid("regex",v,/(^[a-z0-9]([a-z_\.0-9]*)@([a-z_\.0-9]*)([.][a-z]{2,4})$)/i);
 			case "eurodate":return this.IsDate(v);
 			case "float": 	return this.IsNumeric(v);
 			case "guid": 	return this.IsValid("regex",v,/(^[0-9-a-fA-F]{8}-([0-9-a-fA-F]{4}-){3}[0-9-a-fA-F]{12}$)/);
@@ -775,5 +783,14 @@ jQuery.extend({
 	},
 	URLEncodedFormat: function(s){
 		return encodeURI(s);
+	},
+	Val: function(s){
+		var p = /^[0-9]+/, a = s.match(p);
+		if(a === null){
+		    return 0;
+		}
+		else{
+		    return parseInt(a[0],10);
+		}
 	}
 });
