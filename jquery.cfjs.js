@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.3 (07/17/2012)
+ * version 1.2.4 (07/30/2012)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2011 Christopher Jordan
@@ -785,12 +785,12 @@ jQuery.extend({
 		return encodeURI(s);
 	},
 	Val: function(s){
-		var p = /^[0-9]+/, a = s.match(p);
+		var p = /^\s*[+-]?[0-9\.]+/, a = s.match(p);
 		if(a === null){
 		    return 0;
 		}
 		else{
-		    return parseInt(a[0],10);
+		    return parseFloat(a[0],10);
 		}
 	}
 });
