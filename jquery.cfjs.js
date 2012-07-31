@@ -1,9 +1,9 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.4 (07/30/2012)
+ * version 1.2.5 (07/31/2012)
  * @requires jQuery (http://jquery.com)
  *
- * Copyright (c) 2008 - 2011 Christopher Jordan
+ * Copyright (c) 2008 - 2012 Christopher Jordan
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -92,7 +92,7 @@ jQuery.extend({
 		return this.Compare(s1.toUpperCase(),s2.toUpperCase());
 	},
 	CreateDate: function(y,m,d){
-		var rd = new Date();
+		var rd = new Date('01/01/1970');
 		rd.setFullYear(y);
 		rd.setMonth(m-1);
 		rd.setDate(d);
@@ -102,7 +102,7 @@ jQuery.extend({
 		return rd;
 	},
 	CreateDateTime: function(y,m,d,h,n,s){
-		var rd = new Date();
+		var rd = new Date('01/01/1970');
 		rd.setFullYear(y);
 		rd.setMonth(m-1);
 		rd.setDate(d);
@@ -112,10 +112,7 @@ jQuery.extend({
 		return rd;
 	},
 	CreateTime: function(h,n,s){
-		var rd = new Date();
-		rd.setFullYear(1899);
-		rd.setMonth(11);
-		rd.setDate(30);
+		var rd = new Date('01/01/1970');
 		rd.setHours(h);
 		rd.setMinutes(n);
 		rd.setSeconds(s);
