@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.8 (26 APR 2013)
+ * version 1.2.9 (26 APR 2013)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2013 Christopher Jordan
@@ -762,8 +762,8 @@ jQuery.extend({
 		return s.slice(s.length - c, s.length);
 	},
 	Round: function(n,p) {
-		if (!isNaN(n.toFixed(p))){return n.toFixed(p);}
-		return n;
+		if(!p){return Math.round(n);}
+		return Math.round(n*p)/p;
 	},
 	RTrim: function(s){
 		s += '';
