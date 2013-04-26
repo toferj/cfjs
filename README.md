@@ -1,7 +1,7 @@
-cfjs 1.2.7
+cfjs 1.2.8
 ====
 
-A project that replicates _**89**_ ColdFusion functions written in JavaScript and implemented as a jQuery extension, it is dual licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) and [GPL](http://www.gnu.org/licenses/gpl.html) licenses.
+A project that replicates _**90**_ ColdFusion functions written in JavaScript and implemented as a jQuery extension, it is dual licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) and [GPL](http://www.gnu.org/licenses/gpl.html) licenses.
 
 Is there a function missing that you wish were included in CFJS? 
 
