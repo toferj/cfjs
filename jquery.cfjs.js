@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.7 (26 APR 2013)
+ * version 1.2.8 (26 APR 2013)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2013 Christopher Jordan
@@ -147,6 +147,27 @@ jQuery.extend({
 		minutes	= d.getMinutes();
 		seconds	= d.getSeconds();
 		return "{t '" + hours + ":" + minutes + ":" + seconds + "'}";
+	},
+	DateAdd:function(p,n,d){
+	    if(!(d instanceof Date)){
+	        d = new Date(d);
+	    }
+	    switch(p.toLowerCase()){
+	        case 'yyyy':    // year
+	            return new Date(d.getFullYear()+n,d.getMonth(),d.getDate());
+	        case 'q':        // quarter
+	            return new Date(d.getFullYear(),d.getMonth()+(n*3),d.getDate());
+	        case 'm':        // day of year
+	            return new Date(d.getFullYear(),d.getMonth()+n,d.getDate());
+	        case 'd':        // day
+	            return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+	        case 'w':        // weekday
+	            return d; // not yet implemented
+	        case 'ww':        // week (7 days)
+	            return new Date(d.getFullYear(),d.getMonth(),d.getDate()+(n*7));
+	        default:
+	            return d;
+	    }
 	},
 	DateDiff: function(dp,d1,d2){
 		var iDiff,nWeeks,nDays,nHours,nMinutes,nSeconds,nMilliseconds,nQuarters,nMonths,nYears,dtDiff,iDiffMS,dt1=new Date(d1),dt2 = new Date(d2);
