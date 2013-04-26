@@ -1,4 +1,4 @@
-cfjs 1.2.8
+cfjs 1.2.9
 ====
 
 A project that replicates _**90**_ ColdFusion functions written in JavaScript and implemented as a jQuery extension, it is dual licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) and [GPL](http://www.gnu.org/licenses/gpl.html) licenses.
