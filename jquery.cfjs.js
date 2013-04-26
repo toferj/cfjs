@@ -1,9 +1,9 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.5 (07/31/2012)
+ * version 1.2.6 (26 APR 2013)
  * @requires jQuery (http://jquery.com)
  *
- * Copyright (c) 2008 - 2012 Christopher Jordan
+ * Copyright (c) 2008 - 2013 Christopher Jordan
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
@@ -74,8 +74,7 @@ jQuery.extend({
 	},
 	ArrayToList: function(a,d){
 		if(!d){d = ",";}
-		var re = /[,]/gi;
-		return a.toString().replace(re, d);
+		return a.join(d);
 	},
 	ArrayLen: function(a){
 		return a.length;
