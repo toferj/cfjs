@@ -13,7 +13,7 @@ CFJS is a project that replicates _**90**_ ColdFusion functions! It is written i
 
 ### Or better yet...
 
-Add it yourself! And then send me a pull reqeust so I can include it here. I really appreciate it when people will not only suggest changes, but actually offer solutions as well. 
+Add it yourself! Fork the project. Make your changes. Then send me a pull reqeust so I can review your changes and include them here. I really appreciate it when people will not only suggest changes, but actually offer solutions as well. 
 
 ### My most sincere thanks...
 
