@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.9 (26 APR 2013)
+ * version 1.2.10 (26 APR 2013)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2013 Christopher Jordan
@@ -467,7 +467,7 @@ jQuery.extend({
 			case "array": 	return this.IsArray(v);
 			case "date": 	return this.IsDate(v);
 			case "boolean":	return this.IsBoolean(v);
-			case "email": 	return this.IsValid("regex",v,/(^[a-z0-9]([-a-z_\.0-9]*)@([-a-z_\.0-9]*)([.][a-z]{2,4})$)/i);
+			case "email": 	return this.IsValid("regex",v,/(^[a-z0-9]([-a-z_\.0-9]*)@([-a-z_\.0-9]*)([.][a-z]{2,6})$)/i);
 			case "eurodate":return this.IsDate(v);
 			case "float": 	return this.IsNumeric(v);
 			case "guid": 	return this.IsValid("regex",v,/(^[0-9-a-fA-F]{8}-([0-9-a-fA-F]{4}-){3}[0-9-a-fA-F]{12}$)/);
