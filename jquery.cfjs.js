@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.10 (26 APR 2013)
+ * version 1.2.11 (02 MAY 2013)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2013 Christopher Jordan
@@ -149,25 +149,25 @@ jQuery.extend({
 		return "{t '" + hours + ":" + minutes + ":" + seconds + "'}";
 	},
 	DateAdd:function(p,n,d){
-	    if(!(d instanceof Date)){
-	        d = new Date(d);
-	    }
-	    switch(p.toLowerCase()){
-	        case 'yyyy':    // year
-	            return new Date(d.getFullYear()+n,d.getMonth(),d.getDate());
-	        case 'q':        // quarter
-	            return new Date(d.getFullYear(),d.getMonth()+(n*3),d.getDate());
-	        case 'm':        // day of year
-	            return new Date(d.getFullYear(),d.getMonth()+n,d.getDate());
-	        case 'd':        // day
-	            return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
-	        case 'w':        // weekday
-	            return d; // not yet implemented
-	        case 'ww':        // week (7 days)
-	            return new Date(d.getFullYear(),d.getMonth(),d.getDate()+(n*7));
-	        default:
-	            return d;
-	    }
+		if(!(d instanceof Date)){
+			d = new Date(d);
+		}
+		switch(p.toLowerCase()){
+			case 'yyyy':	// year
+				return new Date(d.getFullYear()+n,d.getMonth(),d.getDate());
+			case 'q':		// quarter
+				return new Date(d.getFullYear(),d.getMonth()+(n*3),d.getDate());
+			case 'm':		// day of year
+				return new Date(d.getFullYear(),d.getMonth()+n,d.getDate());
+			case 'd':		// day
+				return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+			case 'w':		// weekday
+				return d; // not yet implemented
+			case 'ww':		// week (7 days)
+				return new Date(d.getFullYear(),d.getMonth(),d.getDate()+(n*7));
+			default:
+				return d;
+		}
 	},
 	DateDiff: function(dp,d1,d2){
 		var iDiff,nWeeks,nDays,nHours,nMinutes,nSeconds,nMilliseconds,nQuarters,nMonths,nYears,dtDiff,iDiffMS,dt1=new Date(d1),dt2 = new Date(d2);
@@ -286,9 +286,9 @@ jQuery.extend({
 				m = (m<10)?"0"+m:m;
 				return m;
 			case "y":
-    			//y: Day of year
-    			d1 = this.CreateDate(d.getFullYear(), 1, 1);
-    			return Math.ceil(this.DateDiff("d", d1, d));
+				//y: Day of year
+				d1 = this.CreateDate(d.getFullYear(), 1, 1);
+				return Math.ceil(this.DateDiff("d", d1, d));
 			case "d":
 				day	= d.getDate();
 				day = (day<10)?"0"+day:day;
@@ -296,9 +296,9 @@ jQuery.extend({
 			case "w":
 				return d.getDay() + 1;
 			case "ww":
-		    	//ww: Week of year
-    			d1 = this.CreateDate(d.getFullYear(), 1, 1);
-    			return Math.round(this.DateDiff("d", d1, d)/7);
+				//ww: Week of year
+				d1 = this.CreateDate(d.getFullYear(), 1, 1);
+				return Math.round(this.DateDiff("d", d1, d)/7);
 			case "h":
 				return d.getHours();
 			case "n":
@@ -762,8 +762,8 @@ jQuery.extend({
 		return s.slice(s.length - c, s.length);
 	},
 	Round: function(n,p) {
-		if(!p){return Math.round(n);}
-		return Math.round(n*p)/p;
+		if(!p){return Math.round(parseFloat(n));}
+		return Math.round(parseFloat(n)*Math.pow(10,p))/Math.pow(10,p);
 	},
 	RTrim: function(s){
 		s += '';
@@ -804,10 +804,10 @@ jQuery.extend({
 	Val: function(s){
 		var p = /^\s*[+-]?[0-9\.]+/, a = s.match(p);
 		if(a === null){
-		    return 0;
+			return 0;
 		}
 		else{
-		    return parseFloat(a[0],10);
+			return parseFloat(a[0],10);
 		}
 	}
 });
