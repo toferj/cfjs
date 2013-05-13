@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.2.11 (02 MAY 2013)
+ * version 1.3.0 (13 MAY 2013)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2013 Christopher Jordan
@@ -33,8 +33,8 @@ jQuery.extend({
 	},
 	_DimensionCount: function(a){
 		var c=0,i;
-		for(i = 0; i < a.length; i++){
-			if(a[i].constructor == Array){
+		for(i = 0; i < a.length; i += 1){
+			if(a[i].constructor === Array){
 				c++;
 			}
 		}
@@ -51,20 +51,20 @@ jQuery.extend({
 	},
 	ArraySort: function(a,st,so){
 		var _so;
-		if (st.toUpperCase() == 'TEXTNOCASE'){
-			if(!so || so.toUpperCase() != "DESC"){
+		if (st.toUpperCase() === 'TEXTNOCASE'){
+			if(!so || so.toUpperCase() !== "DESC"){
 				_so = function(a, b) {a = a.toUpperCase(); b = b.toUpperCase(); if (a < b){return -1;} else if(a > b){return 1;} else {return 0;}};
 			} else {
 				_so = function(a, b) {a = a.toUpperCase(); b = b.toUpperCase(); if (a > b){return -1;} else if(a < b){return 1;} else {return 0;}};
 			}
-		} else if (st.toUpperCase() == 'TEXT'){
-			if(!so || so.toUpperCase() != "DESC"){
+		} else if (st.toUpperCase() === 'TEXT'){
+			if(!so || so.toUpperCase() !== "DESC"){
 				_so = function(a, b) {if (a < b){return -1;} else if(a > b){return 1;} else {return 0;}};
 			} else {
 				_so = function(a, b) {if (a > b){return -1;} else if(a < b){return 1;} else {return 0;}};
 			}
-		} else if (st.toUpperCase() == 'NUMERIC'){
-			if(!so || so.toUpperCase() != "DESC"){
+		} else if (st.toUpperCase() === 'NUMERIC'){
+			if(!so || so.toUpperCase() !== "DESC"){
 				_so = function(a,b) {return a - b;};
 			} else {
 				_so = function(a,b) {return b - a;};
@@ -83,7 +83,7 @@ jQuery.extend({
 		return Math.ceil(n);
 	},
 	Compare: function(s1,s2){
-		if (s1 == s2) {return 0;}
+		if (s1 === s2) {return 0;}
 		if (s1 > s2) {return 1;}
 		else {return -1;}
 	},
@@ -309,6 +309,24 @@ jQuery.extend({
 				return d.getMilliseconds();
 		}
 	},
+    Day: function(d){
+        if(!(d instanceof Date)){
+            d = new Date(d);
+        }
+        return d.getDate();
+    },
+    DayOfWeek: function(d){
+
+        if(!(d instanceof Date)){
+            d = new Date(d);
+        }
+        return d.getDay() + 1;
+    },
+    DayOfWeekAsString: function(d){
+        /* we will assume that d will be a number from 1 to 7 (not 0 to 6) */
+        var aDays=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        return aDays[d - 1];
+    },
 	DaysInMonth: function(m,y){
 		/* Thanks to Charlie (http://snippets.dzone.com/user/Charlie) over at dzone for this code.
 		 * Only slightly modified from the sample found at http://snippets.dzone.com/posts/show/2099
@@ -328,7 +346,7 @@ jQuery.extend({
 		if(isNaN(_n)){
 			_n = 0;
 		}
-		sign = (_n == (_n = Math.abs(n)));
+		sign = (_n === (_n = Math.abs(n)));
 			_n = Math.floor(_n*100+0.50000000001);
 		cents = _n%100;
 			_n = Math.floor(_n/100).toString();
@@ -345,6 +363,13 @@ jQuery.extend({
 	FindNoCase: function(sb,s){
 		return this.Find(sb.toUpperCase(),s.toUpperCase());
 	},
+    Hour: function(d){
+
+        if(!(d instanceof Date)){
+            d = new Date(d);
+        }
+        return d.getHours();
+    },
 	HTMLCodeFormat: function(s){
 		return '<pre>' + this.HTMLEditFormat(s) + '</pre>';
 	},
@@ -381,32 +406,32 @@ jQuery.extend({
 	IsArray: function(a,dim){
 		if(dim){
 			nod = this._DimensionCount(a);
-			if(nod == dim){
+			if(nod === dim){
 				return true;
 			}
 			return false;
 		}
-		if(a.constructor == Array){
+		if(a.constructor === Array){
 			return true;
 		}
 		return false;
 	},
 	IsBoolean: function(v){
-		if(v.constructor == Boolean){
+		if(v.constructor === Boolean){
 			return true;
 		}
 		return false;
 	},
 	IsDate: function(d){
 		var datePat,matchArray,month,day,year,isleap;
-		datePat 	= /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
-		matchArray 	= d.toString().match(datePat);
+		datePat = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
+		matchArray = d.toString().match(datePat);
 		if (matchArray === null) {
 			return false;
 		}
-		month 	= matchArray[1];
-		day 	= matchArray[3];
-		year 	= matchArray[5];
+		month = matchArray[1];
+		day = matchArray[3];
+		year = matchArray[5];
 		isleap = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
 		if (month < 1 || month > 12) {
 			return false;
@@ -414,24 +439,24 @@ jQuery.extend({
 		if (day < 1 || day > 31) {
 			return false;
 		}
-		if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+		if ((month===4 || month===6 || month===9 || month===11) && day===31) {
 			return false;
 		}
-		if (month == 2) {
-			if (day > 29 || (day==29 && !isleap)) {
+		if (month === 2) {
+			if (day > 29 || (day===29 && !isleap)) {
 				return false;
 			}
 		}
 		return true;
 	},
 	IsDefined: function(o){
-		if(typeof o != "undefined"){return true;}
+		if(typeof o !== "undefined"){return true;}
 		return false;
 	},
 	IsLeapYear: function(y){
-		if((y/4)   != Math.floor(y/4)){return false;}
-		if((y/100) != Math.floor(y/100)){return true;}
-		if((y/400) != Math.floor(y/400)){return false;}
+		if((y/4)   !== Math.floor(y/4)){return false;}
+		if((y/100) !== Math.floor(y/100)){return true;}
+		if((y/400) !== Math.floor(y/400)){return false;}
 		return true;
 	},
 	IsNumeric: (function(s){
@@ -452,38 +477,38 @@ jQuery.extend({
 		return false;
 	},
 	IsString: function(s){
-		if(s.constructor == String){return true;}
+		if(s.constructor === String){return true;}
 		return false;
 	},
 	IsStruct: function(s){
-		if(s.constructor == Object){return true;}
+		if(s.constructor === Object){return true;}
 		return false;
 	},
 	IsValid: function(t,v,r,m){
 		var i,digit,sum=0;
 		t = t.toLowerCase();
 		switch(t){
-			case "any": 	return this.IsSimpleValue(v);
-			case "array": 	return this.IsArray(v);
-			case "date": 	return this.IsDate(v);
-			case "boolean":	return this.IsBoolean(v);
-			case "email": 	return this.IsValid("regex",v,/(^[a-z0-9]([-a-z_\.0-9]*)@([-a-z_\.0-9]*)([.][a-z]{2,6})$)/i);
-			case "eurodate":return this.IsDate(v);
-			case "float": 	return this.IsNumeric(v);
-			case "guid": 	return this.IsValid("regex",v,/(^[0-9-a-fA-F]{8}-([0-9-a-fA-F]{4}-){3}[0-9-a-fA-F]{12}$)/);
+			case "any": return this.IsSimpleValue(v);
+			case "array": return this.IsArray(v);
+			case "date": return this.IsDate(v);
+			case "boolean": return this.IsBoolean(v);
+			case "email": return this.IsValid("regex",v,/(^[a-z0-9]([\-a-z_\.0-9]*)@([\-a-z_\.0-9]*)([.][a-z]{2,6})$)/i);
+			case "eurodate": return this.IsDate(v);
+			case "float": return this.IsNumeric(v);
+			case "guid": return this.IsValid("regex",v,/(^[0-9-a-fA-F]{8}-([0-9-a-fA-F]{4}-){3}[0-9-a-fA-F]{12}$)/);
 			case "integer": return this.IsValid("regex",v,/(^-?\d\d*$)/);
 			case "numeric": return this.IsNumeric(v);
-			case "range": 	return (((v*1) >= r) && ((v*1) <= m))? true:false;
-			case "regex": 	return v.toString().match(r) ? true:false;
-			case "regular_expression": 		return this.IsValid("regex",v,r);
-			case "social_security_number": 	return this.IsValid("ssn",v);
-			case "ssn": 	return this.IsValid("regex",v,/^([0-6]\d{2}|7[0-6]\d|77[0-2])([ \-]?)(\d{2})\2(\d{4})$/);
-			case "string": 	return this.IsString(v);
-			case "struct": 	return this.IsStruct(v);
-			case "telephone":return this.IsValid("regex",v,/^(\([1-9]\d{2}\)\s?|[1-9]\d{2}[\.\-])?\d{3}[\.\-]\d{4}$/);
-			case "time": 	return this.IsDate(v);
-			case "url": 	return this.IsValid("regex",v,/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i);
-			case "uuid": 	return this.IsValid("regex",v,/(^[0-9-a-fA-F]{8}-([0-9-a-fA-F]{4}-){2}[0-9-a-fA-F]{15}$)/);
+			case "range": return (((v) >= r) && ((v) <= m))? true:false;
+			case "regex": return v.toString().match(r) ? true:false;
+			case "regular_expression": return this.IsValid("regex",v,r);
+			case "social_security_number": return this.IsValid("ssn",v);
+			case "ssn": return this.IsValid("regex",v,/^([0-6]\d{2}|7[0-6]\d|77[0-2])([ \-]?)(\d{2})\2(\d{4})$/);
+			case "string": return this.IsString(v);
+			case "struct": return this.IsStruct(v);
+			case "telephone": return this.IsValid("regex",v,/^(\([1-9]\d{2}\)\s?|[1-9]\d{2}[\.\-])?\d{3}[\.\-]\d{4}$/);
+			case "time": return this.IsDate(v);
+			case "url": return this.IsValid("regex",v,/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i);
+			case "uuid": return this.IsValid("regex",v,/(^[0-9-a-fA-F]{8}-([0-9-a-fA-F]{4}-){2}[0-9-a-fA-F]{15}$)/);
 			case "variablename": return this.IsValid("regex",v,/(^[a-zA-Z_][0-9a-zA-Z_]*$)/);
 			case "zipcode": return this.IsValid("regex",v,/(^\d{5}$)|(^\d{5}-\d{4}$)/);
 			case "creditcard": 
@@ -558,10 +583,10 @@ jQuery.extend({
 		l += ''; // cheap way to convert to a string
 		if(!d){d = ",";}
 		for(i = 0; i < l.split(d).length; i++){
-			if (i != posInArray){
+			if (i !== posInArray){
 				posInList = i + 1;
 				if (r.length){
-					thisD 	= d;
+					thisD = d;
 				}
 				r += thisD + this.ListGetAt(l, posInList, d);
 			}
@@ -574,7 +599,7 @@ jQuery.extend({
 		if(!d){d = ',';}
 		listToArray = l.split(d);
 		for (i=0; i < listToArray.length; i++){
-			if (listToArray[i] == v){
+			if (listToArray[i] === v){
 				r = i + 1;
 				break;
 			}
@@ -670,7 +695,7 @@ jQuery.extend({
 		if(!d){d=',';}
 		l = l.split(d);
 		for(i = 0; i < l.length; i++){
-			if(l[i] == v){c++;}
+			if(l[i] === v){c++;}
 		}
 		return c;
 	},
@@ -680,7 +705,7 @@ jQuery.extend({
 		if(!d){d=',';}
 		l = l.split(d);
 		for(i = 0; i < l.length; i++){
-			if(l[i].toUpperCase() == v.toUpperCase()){c++;}
+			if(l[i].toUpperCase() === v.toUpperCase()){c++;}
 		}
 		return c;
 	},
@@ -694,6 +719,26 @@ jQuery.extend({
 		start -= 1;
 		return s.slice(start,start + c);
 	},
+    Minute: function(d){
+
+        if(!(d instanceof Date)){
+            d = new Date(d);
+        }
+        return d.getMinutes();
+    },
+    Month: function(d){
+
+        if(!(d instanceof Date)){
+            d = new Date(d);
+        }
+        return d.getMonth() + 1;
+
+    },
+    MonthAsString: function(m){
+        /* we will assume that m is a month number between 1 and 12 (not 0 and 11). */
+        var aMonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return aMonths[m - 1];
+    },
 	Pad: function(s, n, pc, pd){
 		var sl,pl;
 		if(arguments.length <= 3){pd='R';}
@@ -719,7 +764,7 @@ jQuery.extend({
 	RandRange: function(n,n2){
 		return Math.floor(Math.random()*(n2-n+1))+n;
 	},
- 	RepeatString: function(s,n){
+	RepeatString: function(s,n){
 		var rs='',i;
 		for(i = 1; i <= n; i++){
 			rs += s;
@@ -770,9 +815,20 @@ jQuery.extend({
 		if(s.length){return s.replace(/\s*$/, '');}
 		return '';
 	},
-	StructKeyArray: function(s){
+    Second: function(d){
+
+        if(!(d instanceof Date)){
+            d = new Date(d);
+        }
+        return d.getSeconds();
+    },
+    StructKeyArray: function(s){
 		var k,a=[];
-		for(k in s){a.push(k);}
+		for(k in s){
+			if (s.hasOwnProperty(k)) {
+				a.push(k);
+			}
+		}
 		return a;
 	},
 	StructKeyExists: function(s,k){
@@ -781,7 +837,11 @@ jQuery.extend({
 	StructKeyList: function(s,d){
 		var k,a='';
 		if(!d){d=',';}
-		for(k in s){a = this.ListAppend(a, k, d);}
+		for(k in s){
+			if (s.hasOwnProperty(k)) {
+				a = this.ListAppend(a, k, d);
+			}
+		}
 		return a;
 	},
 	TimeFormat: function(t,m){
@@ -802,12 +862,19 @@ jQuery.extend({
 		return encodeURI(s);
 	},
 	Val: function(s){
-		var p = /^\s*[+-]?[0-9\.]+/, a = s.match(p);
+		var p = /^\s*[+\-]?[0-9\.]+/, a = s.match(p);
 		if(a === null){
 			return 0;
 		}
 		else{
 			return parseFloat(a[0],10);
 		}
-	}
+	},
+    Year: function(d){
+
+        if(!(d instanceof Date)){
+            d = new Date(d);
+        }
+        return d.getFullYear();
+    }
 });

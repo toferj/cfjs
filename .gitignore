@@ -1,0 +1,6 @@
+# files to ignore
+.project
+settings.xml
+
+# folders to ignore
+.settings/

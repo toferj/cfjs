@@ -1,7 +1,7 @@
-CFJS 1.2.11
+CFJS 1.3.0
 ====
 
-CFJS is a project that replicates [_**80**_ ColdFusion functions](https://github.com/topherj/cfjs/wiki/CFJS-Function-List)! It is written in JavaScript and implemented as a jQuery extension, and is dual licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) and [GPL](http://www.gnu.org/licenses/gpl.html) licenses.
+CFJS is a project that replicates [_**89**_ ColdFusion functions](https://github.com/topherj/cfjs/wiki/CFJS-Function-List)! It is written in JavaScript and implemented as a jQuery extension, and is dual licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) and [GPL](http://www.gnu.org/licenses/gpl.html) licenses.
 
 ### Found a bug?
 
@@ -32,3 +32,4 @@ Cheers!<br />
 Chris 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/topherj/cfjs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

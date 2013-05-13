@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ======================================================================
+		13 MAY 2013
+
+		project name   : cfjs
+		project author : Chris Jordan (chris.s.jordan@gmail.com)
+		project detail : TODO
+	 ====================================================================== -->
+<project name="cfjs" default="compress">
+	<!-- the following happens EVERY TIME regardless of which target was called -->
+	<description>
+		ANT build script to compress and distribute the pinntranet site
+	</description>
+
+	<propertyfile file="build.properties">
+		<entry key="buildNumber" type="int" default="0" operation="+" pattern="000" />
+	</propertyfile>
+
+	<!-- set the timestamp prefix. This will give me access to backup.DSTAMP, backup.TSTAMP and backup.TODAY -->
+	<tstamp prefix="backup" />
+
+	<!-- get the newly incramented build number -->
+	<property file="build.properties" prefix="build" />
+
+	<!-- set some commonly used values -->
+	<property name="root" location="c:\Users\cjordan\Documents\GitHub" />
+
+	<property name="sourceDir" location="${root}\${ant.project.name}" />
+	
+	<property name="yuicompressor" location="c:\Program Files\yuicompressor-2.4.6\build\yuicompressor-2.4.6.jar" />
+		
+	<!-- ===========================================================================================
+			target: init
+			intent: show the user what build number we're starting and for what project
+		 =========================================================================================== -->
+	<target name="init" description="initializes the build">
+		<echo message="Starting ${ant.project.name} build ${build.buildNumber}" />
+	</target>
+
+	<!-- ===========================================================================================
+			target: compress
+			intent: use the yuicompressor to compress the JavaScript files contained in the project
+		 =========================================================================================== -->
+	<target name="compress" depends="init" description="compresses js files using yuicompressor-2.4.6">
+		<!-- compress the JS -->
+		<echo message="Compressing JavaScript Files..." />
+		<apply executable="java" parallel="false" dest="${sourceDir}">
+			<fileset dir="${sourceDir}" includes="**/*.js" excludes="**/*.min.js" />
+			<arg value="-jar" />
+			<arg path="${yuicompressor}" />
+			<srcfile />
+			<arg value="-o" />
+			<mapper type="glob" from="*.js" to="*.min.js" />
+			<targetfile />
+		</apply>
+	</target>
+	
+</project>
