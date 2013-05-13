@@ -27,6 +27,7 @@ Here's a great big THANK YOU to all the following folks who have submitted comme
 * Mark Mazelin
 * Holger Lockertsen
 * Larry Stephens
+* [Steve Levithan](http://blog.stevenlevithan.com/)
 
 Cheers!<br />
 Chris 
