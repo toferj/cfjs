@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.3.0 (13 MAY 2013)
+ * version 1.3.1 (17 MAY 2013)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2013 Christopher Jordan
@@ -13,7 +13,6 @@
  * code originally written (except where noted), and
  * published as-is and without license as LeftCorner.js by
  * Randy Anderson (randerson@leftcorner.com)
- * - http://www.leftcorner.com
  *
  * I'd like to thank Randy for the work he put in on the library as
  * it was when I started working on it.
@@ -281,6 +280,7 @@ jQuery.extend({
 					case 12:
 						return 4;
 				}
+                break;
 			case "m":
 				m = d.getMonth() + 1;// because it returns 0 - 11 not 1 - 12
 				m = (m<10)?"0"+m:m;
@@ -358,7 +358,7 @@ jQuery.extend({
 		return (((sign)?'':'(') + '$' + _n + ((sign)?'':')'));
 	},
 	Find: function(sb,s){
-		 return s.toString().indexOf(sb) + 1;
+        return s.toString().indexOf(sb) + 1;
 	},
 	FindNoCase: function(sb,s){
 		return this.Find(sb.toUpperCase(),s.toUpperCase());
@@ -467,7 +467,7 @@ jQuery.extend({
 				return false;
 			}
 			return true;
-		}
+		};
 	})(),
 	IsSimpleValue: function(v){
 		if(this.IsString(v)){return true;}
@@ -750,16 +750,6 @@ jQuery.extend({
 		if(sl >= n){return s;}
 		if(pd === 'R' || pd === 'Right'){return s + this.RepeatString(pc, pl);}
 		return this.RepeatString(pc, pl) + s;
-	},
-	Param: function(n,d){
-		if(!this.IsDefined(n)){
-			if(this.IsString(d)){
-				eval("var " + n + " = '" + d + "';");
-			}
-			else{
-				eval("var " + n + " = " + d + ";");
-			}
-		}
 	},
 	RandRange: function(n,n2){
 		return Math.floor(Math.random()*(n2-n+1))+n;
