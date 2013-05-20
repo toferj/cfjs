@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ======================================================================
-		13 MAY 2013
+		20 MAY 2013
 
 		project name   : cfjs
 		project author : Chris Jordan (chris.s.jordan@gmail.com)
@@ -9,15 +9,12 @@
 <project name="cfjs" default="compress">
 	<!-- the following happens EVERY TIME regardless of which target was called -->
 	<description>
-		ANT build script to compress and distribute the pinntranet site
+		ANT build script to compress the cfjs project
 	</description>
 
 	<propertyfile file="build.properties">
 		<entry key="buildNumber" type="int" default="0" operation="+" pattern="000" />
 	</propertyfile>
-
-	<!-- set the timestamp prefix. This will give me access to backup.DSTAMP, backup.TSTAMP and backup.TODAY -->
-	<tstamp prefix="backup" />
 
 	<!-- get the newly incramented build number -->
 	<property file="build.properties" prefix="build" />
