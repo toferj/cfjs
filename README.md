@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-CFJS 1.3.1
-=======
+
 CFJS 1.3.2
->>>>>>> 1.3.2
-====
+=======
 
 CFJS is a project that replicates [_**90**_ ColdFusion functions](https://github.com/topherj/cfjs/wiki/CFJS-Function-List)! It is written in JavaScript and implemented as a jQuery extension, and is dual licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php) and [GPL](http://www.gnu.org/licenses/gpl.html) licenses.
 
