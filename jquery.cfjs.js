@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.3.1 (17 MAY 2013)
+ * version 1.3.2 (6 SEP 2013)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2013 Christopher Jordan
@@ -760,6 +760,48 @@ jQuery.extend({
 			rs += s;
 		}
 		return rs;
+	},
+	ReReplace: function(s1,p,s2,g){
+		var r;
+		if(p instanceof RegExp){
+			r = p;
+		}
+		else{
+			if(g === undefined || g.toLowerCase() === 'one'){
+				r = new RegExp(p);
+			}
+			else if(g.toLowerCase() === 'all'){
+				r = new RegExp(p,'g');
+			}
+			else{
+				throw new Error('Error: ' + g + ' is an invalid scope. Use "one" (default if omitted) or "all".');
+			}
+		}
+		if(typeof(s1) !== 'string'){
+			throw new Error('Error: ' + s1 + ' is not a string.');
+		}
+		return s1.replace(r,s2);
+	},
+	ReReplaceNoCase: function(s1,p,s2,g){
+		var r;
+		if(p instanceof RegExp){
+			r = p;
+		}
+		else{
+			if(g === undefined || g.toLowerCase() === 'one'){
+				r = new RegExp(p,'i');
+			}
+			else if(g.toLowerCase() === 'all'){
+				r = new RegExp(p,'gi');
+			}
+			else{
+				throw new Error('Error: ' + g + ' is an invalid scope. Use "one" (default if omitted) or "all".');
+			}
+		}
+		if(typeof(s1) !== 'string'){
+			throw new Error('Error: ' + s1 + ' is not a string.');
+		}
+		return s1.replace(r,s2);
 	},
 	Replace: function(s,sb1,sb2,sc){
 		var re;
