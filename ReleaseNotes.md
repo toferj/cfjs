@@ -25,5 +25,5 @@ Another point to note is that I allowed both ReReplace and ReReplaceNoCase to ac
 
 	$.ReReplace(string1,new RegExp('\\s','g'),"^","all")
 
-	$.ReReplace(string1,/\s/,"^","all") // note that here because we're using the forward slases to deliniate the regular expression, there is no need to escape the backslash
+	$.ReReplace(string1,/\s/,"^","all") // note that because we're using the forward slashes to deliniate the regular expression, there is no need to escape the backslash
 
