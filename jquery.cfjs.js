@@ -1,6 +1,6 @@
 /*!
  * jQuery CFJS plugin
- * version 1.3.2 (6 SEP 2013)
+ * version 1.3.3 (12 FEB 2014)
  * @requires jQuery (http://jquery.com)
  *
  * Copyright (c) 2008 - 2013 Christopher Jordan
@@ -463,10 +463,7 @@ jQuery.extend({
 		//because jquery is now providing their own version of isNumeric as of jq1.7
 		return jQuery.isNumeric || 
 		function(s) {
-			if (isNaN(s)){
-				return false;
-			}
-			return true;
+			return !isNaN(parseFloat(s)) && isFinite(s);
 		};
 	})(),
 	IsSimpleValue: function(v){
