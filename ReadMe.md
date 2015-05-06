@@ -30,6 +30,4 @@ Here's a great big THANK YOU to all the following folks who have submitted comme
 * [Steve Levithan](http://blog.stevenlevithan.com/)
 
 Cheers!<br />
-Chris 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/topherj/cfjs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+Chris
