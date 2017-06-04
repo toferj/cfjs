@@ -5,7 +5,7 @@ CFJS is a project that replicates [_**90**_ ColdFusion functions](https://github
 
 ### Found a bug?
 
-[Submit a bug report](https://github.com/topherj/cfjs/issues/new) here on github _**or**_ via the [issue tracker](http://cfjs.riaforge.org/index.cfm?event=page.addissue) on RIAForge.org.
+[Submit a bug report](https://github.com/topherj/cfjs/issues/new) here on github.
 
 ### Is there a function missing that you wish were included in CFJS?
 
